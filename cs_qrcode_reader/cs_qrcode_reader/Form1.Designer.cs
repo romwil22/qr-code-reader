@@ -84,7 +84,7 @@ namespace cs_qrcode_reader
             this.qrcode_textbox.Location = new System.Drawing.Point(493, 56);
             this.qrcode_textbox.Multiline = true;
             this.qrcode_textbox.Name = "qrcode_textbox";
-            this.qrcode_textbox.Size = new System.Drawing.Size(295, 303);
+            this.qrcode_textbox.Size = new System.Drawing.Size(295, 297);
             this.qrcode_textbox.TabIndex = 3;
             // 
             // start_button
@@ -111,6 +111,7 @@ namespace cs_qrcode_reader
             // 
             // timer1
             // 
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1

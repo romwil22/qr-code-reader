@@ -18,8 +18,8 @@ namespace cs_qrcode_reader
 {
     public partial class Form1 : Form
     {
-        public FilterInfoCollection captureDevice;
-        public VideoCaptureDevice finalFrame;
+        FilterInfoCollection filterIntoCollection;
+        VideoCaptureDevice captureDevice;
         public Form1()
         {
             InitializeComponent();
@@ -27,21 +27,22 @@ namespace cs_qrcode_reader
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            captureDevice = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            foreach (FilterInfo device in captureDevice)
+            filterIntoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            foreach (FilterInfo filterInfo in filterIntoCollection)
             {
-                camera_device_combox.Items.Add(device.Name);
+                camera_device_combox.Items.Add(filterInfo.Name);
             }
 
             camera_device_combox.SelectedIndex = 0;
-            finalFrame = new VideoCaptureDevice();
         }
 
         private void start_button_Click(object sender, EventArgs e)
         {
-            finalFrame = new VideoCaptureDevice(captureDevice[camera_device_combox.SelectedIndex].MonikerString);
-            finalFrame.NewFrame += new NewFrameEventHandler(finalframe_newframe);
-            finalFrame.Start();
+            captureDevice = new VideoCaptureDevice(filterIntoCollection[camera_device_combox.SelectedIndex].MonikerString);
+            captureDevice.NewFrame += finalframe_newframe;
+            captureDevice.Start();
+            timer1.Start();
         }
 
         private void finalframe_newframe(object sender, NewFrameEventArgs eventArgs)
@@ -51,28 +52,29 @@ namespace cs_qrcode_reader
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (finalFrame.IsRunning == true)
+            if (captureDevice.IsRunning)
             {
-                finalFrame.Stop();
+                captureDevice.Stop();
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BarcodeReader qrCodeReader = new BarcodeReader();
-            Result qrResult = qrCodeReader.Decode((Bitmap)qrcode_picturebox.Image);
+            if (qrcode_picturebox.Image != null)
+            {
+                BarcodeReader qrCodeReader = new BarcodeReader();
+                Result result = qrCodeReader.Decode((Bitmap)qrcode_picturebox.Image);
 
-            try
-            {
-                string qrDecoded = qrResult.ToString().Trim();
-                if (qrDecoded != "")
+                if (result != null)
                 {
-                    qrcode_textbox.Text = qrDecoded;
+                    qrcode_textbox.Text = result.ToString();
+                    timer1.Stop();
+
+                    if (captureDevice.IsRunning)
+                    {
+                        captureDevice.Stop();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
             }
         }
 
