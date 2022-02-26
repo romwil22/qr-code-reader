@@ -80,7 +80,7 @@ namespace cs_qrcode_reader
 
         private void button2_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            qrcode_textbox.Clear();
         }
     }
 }
