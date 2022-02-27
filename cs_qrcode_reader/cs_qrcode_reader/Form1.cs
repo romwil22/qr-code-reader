@@ -68,19 +68,18 @@ namespace cs_qrcode_reader
                 if (result != null)
                 {
                     qrcode_textbox.Text = result.ToString();
-                    timer1.Stop();
-
-                    if (captureDevice.IsRunning)
-                    {
-                        captureDevice.Stop();
-                    }
                 }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            StreamWriter writeFile = File.CreateText("qr-code-text.txt");
+            writeFile.WriteLine("Date Created: "+DateTime.Now.ToString());
+            writeFile.WriteLine(qrcode_textbox.Text);
+            writeFile.Close();
             qrcode_textbox.Clear();
+            MessageBox.Show("text file created", "Information", MessageBoxButtons.OK);
         }
     }
 }

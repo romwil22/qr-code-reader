@@ -90,7 +90,7 @@ namespace cs_qrcode_reader
             // start_button
             // 
             this.start_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_button.Location = new System.Drawing.Point(507, 381);
+            this.start_button.Location = new System.Drawing.Point(524, 381);
             this.start_button.Name = "start_button";
             this.start_button.Size = new System.Drawing.Size(75, 37);
             this.start_button.TabIndex = 4;
@@ -101,11 +101,11 @@ namespace cs_qrcode_reader
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(588, 381);
+            this.button2.Location = new System.Drawing.Point(628, 381);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 37);
+            this.button2.Size = new System.Drawing.Size(127, 37);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Read";
+            this.button2.Text = "Create text file";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
